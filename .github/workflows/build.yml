@@ -34,3 +34,36 @@ jobs:
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
+
+  deployPages:
+  #條件: 完成 buildForAllSupportedPlatforms
+   needs: buildForAllSupportedPlatforms
+   name: 上架到 Itch.io 🚀
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+
+     - uses: actions/download-artifact@v3
+       with:
+         name: build-WebGL
+         path: build
+
+     - name: Display structure of root files
+       run: ls -R
+       working-directory: build/WebGL
+
+     - name: Deploy 🚀
+       uses: JamesIves/github-pages-deploy-action@4.1.4
+       with:
+         branch: itch-io
+         folder: build/WebGL
+         
+     - uses: manleydev/butler-publish-itchio-action@master
+       env:
+         BUTLER_CREDENTIALS: ${{ secrets.ITCH_IO_API_KEY }}
+         CHANNEL: HTML
+         ITCH_GAME: 踩地雷小遊戲
+         ITCH_USER: lodiya000
+         BRANCH: itch-io
+         PACKAGE: build/WebGL
