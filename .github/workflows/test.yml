@@ -1,0 +1,17 @@
+﻿#工作流程名稱
+name: 測試用工作流程
+
+#執行工作流程的時間點(每次push專案執行此工作)
+on: push
+
+#工作內容
+jobs:
+  
+ #工作內容為發布執行檔
+ build:
+  # 使用ubuntu Linux 作業系統: 可發布 Linux、Windows、Web GL
+  runs-on: ubuntu-latest
+  #工作的流程
+  steps:
+  - name: 測試工作的第一個步驟
+    run: echo "開始執行工作的第一個步驟"
