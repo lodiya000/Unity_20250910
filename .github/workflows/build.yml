@@ -1,4 +1,4 @@
-﻿name: 發布網頁版
+﻿name: 發佈網頁版
 
 on: push
 
@@ -36,13 +36,13 @@ jobs:
           path: build/${{ matrix.targetPlatform }}
 
   deployPages:
-  #條件: 完成 buildForAllSupportedPlatforms
+   # 需要的條件：先完成＂buildForAllSupportedPlatforms＂這項工作
    needs: buildForAllSupportedPlatforms
-   name: 上架到 Itch.io 🚀
+   name: 上架到 itch 平台
    runs-on: ubuntu-latest
    steps:
      - name: Checkout code
-       uses: actions/checkout@v3
+       uses: actions/checkout@v4
 
      - uses: actions/download-artifact@v4
        with:
@@ -67,3 +67,4 @@ jobs:
          ITCH_USER: lodiya000
          BRANCH: itch-io
          PACKAGE: build/WebGL
+         
