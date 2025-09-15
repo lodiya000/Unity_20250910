@@ -44,7 +44,7 @@ jobs:
      - name: Checkout code
        uses: actions/checkout@v3
 
-     - uses: actions/download-artifact@v3
+     - uses: actions/download-artifact@v4
        with:
          name: build-WebGL
          path: build
@@ -63,7 +63,7 @@ jobs:
        env:
          BUTLER_CREDENTIALS: ${{ secrets.ITCH_IO_API_KEY }}
          CHANNEL: HTML
-         ITCH_GAME: 踩地雷小遊戲
+         ITCH_GAME: mines-test
          ITCH_USER: lodiya000
          BRANCH: itch-io
          PACKAGE: build/WebGL
