@@ -8,6 +8,7 @@ namespace Lodiya
     {
         [SerializeField]
         MinesManager_Canvas minesManager;
+
         [SerializeField]
         public Button btu;
 
@@ -16,6 +17,10 @@ namespace Lodiya
 
         [SerializeField]
         public Image cover;
+        [SerializeField]
+        public GameObject _cover;
+
+        public bool canOpen = true;
 
         private int position_X, position_Y;
 
@@ -28,6 +33,16 @@ namespace Lodiya
         {
             position_X = x;
             position_Y = y;
+        }
+
+        public void Mark()
+        {
+            minesManager.Mark(position_X, position_Y);
+        }
+
+        public void Open()
+        {
+            _cover.SetActive(false);
         }
     }
 }

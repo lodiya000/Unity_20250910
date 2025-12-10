@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7482667652216324306, guid: cacb6a1e861a95b4a9007ffaa6ee68c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -210,7 +210,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8432429607379056399}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8575501777637153854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +239,8 @@ MonoBehaviour:
   btu: {fileID: 286422874881866010}
   item: {fileID: 1356564302694940433}
   cover: {fileID: 4696661017431522216}
+  _cover: {fileID: 3245041157871929530}
+  canOpen: 1
 --- !u!1 &8001925905595268362
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Lodiya
 {
@@ -11,10 +9,14 @@ namespace Lodiya
         public int minesCount = 10;
         [SerializeField]
         public GameObject baseBox;
-        public int[,] mines = new int[5,5];
+
         //沒炸彈為0 炸彈為1 道具
+        public int[,] mines = new int[5,5];
+        
         public Grid[,] mineGrid = new Grid[5,5];
         private Grid grid;
+
+        public int point = 0;
 
         [SerializeField]
         public Sprite[] num = new Sprite[9];
@@ -45,8 +47,15 @@ namespace Lodiya
                 mines[x,y] = 1;
                 mineGrid[x, y].item.sprite = bomb;
             }
+
+            Debug.Log("reset");
         }
 
+        /// <summary>
+        /// 翻開格子
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void Click(int x, int y)
         {
             mineGrid[x, y].cover.color = Color.clear;
@@ -71,6 +80,7 @@ namespace Lodiya
                 if (count > 0)
                 {
                     mineGrid[x, y].item.sprite = num[count-1];
+                    point = point + count;
                 }
             }
             else if (mines[x, y] == 1)
@@ -78,6 +88,23 @@ namespace Lodiya
                 Debug.Log("地雷");
             }
         }
+
+        public void Mark(int x, int y)
+        {
+            Debug.Log("標記");
+
+            if(mineGrid[x, y].canOpen)
+            { 
+                mineGrid[x, y].cover.color = Color.red;
+            }
+            else if (!mineGrid[x, y].canOpen)
+            {
+                mineGrid[x, y].cover.color = Color.HSVToRGB(50,97,100);
+            }
+
+            mineGrid[x, y].canOpen = !mineGrid[x, y].canOpen;
+        }
+
 
         public bool Search(int x, int y)
         {
