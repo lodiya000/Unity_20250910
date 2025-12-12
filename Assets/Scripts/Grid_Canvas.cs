@@ -29,6 +29,11 @@ namespace Lodiya
             btu.onClick.AddListener(() => minesManager.Click(position_X, position_Y));
         }
 
+        public void Test()
+        {
+            Debug.Log("<color=#ff3>地格測試</color>");
+        }
+
         public void SetPosition(int x, int y)
         {
             position_X = x;

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Lodiya
 {
@@ -58,6 +56,17 @@ namespace Lodiya
 
             List<RaycastResult> results = new List<RaycastResult>();
             raycaster.Raycast(pointerData, results);
+
+            for (int i = 0; i < results.Count; i++)
+            {
+                RaycastResult result = results[i];
+                Debug.Log($"<color=#6f6>{result.gameObject.name}</color>");
+
+                if (result.gameObject.TryGetComponent(out Grid_Canvas grid))
+                {
+                    grid.Test();
+                }
+            }
 
             if (results.Count > 0)
             {

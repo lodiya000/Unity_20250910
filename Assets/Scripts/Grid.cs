@@ -1,12 +1,24 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Lodiya
 {
+    public enum Type { None, Prop, Bomb }
+
+    public class Content { }
+    public class Enemy: Content { }
+    public class Prop : Content { }
+
     public class Grid : MonoBehaviour
     {
+        public void Initialize(Type _type, Content _content)
+        {
+            type = _type;
+            content = _content;
+        }
+
+        private Type type;
+        private Content content;
+
         [SerializeField]
         MinesManager minesManager;
 
