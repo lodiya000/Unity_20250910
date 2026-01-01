@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Lodiya
@@ -11,18 +10,29 @@ namespace Lodiya
         MinesManager minesManager;
 
         [SerializeField]
-        public SpriteRenderer item;
+        public Button btu;
 
         [SerializeField]
-        public SpriteRenderer cover;
+        public Image gridImg;
+
+        [SerializeField]
+        public Unit unit;
+
+        [SerializeField]
+        public Image cover;
+        [SerializeField]
+        public GameObject _cover;
+        [SerializeField]
+        public CanvasGroup itemCanvas;
 
         public bool canOpen = true;
-
+        public bool isFlip = false;
         private int position_X, position_Y;
 
         private void Awake()
         {
-
+            btu.onClick.AddListener(() => MinesManager.instance.Flip(position_X, position_Y));
+            itemCanvas.alpha = 0;
         }
 
         public void SetPosition(int x, int y)
@@ -31,12 +41,52 @@ namespace Lodiya
             position_Y = y;
         }
 
-        private void OnMouseDown()
+        public void Mark()
         {
-            if (Input.GetMouseButtonDown(0) && canOpen) // 0 = 左鍵
-                minesManager.Click(position_X, position_Y);
-            else if (Input.GetMouseButtonDown(1)) // 1 = 右鍵
-                minesManager.Mark(position_X, position_Y);
+            minesManager.Mark(position_X, position_Y);
+        }
+
+        public void Open()
+        {
+            _cover.SetActive(false);
+            itemCanvas.alpha = 1;
+        }
+
+        public void Flip()
+        {
+            //Open();
+
+            _cover.SetActive(false);
+
+            if (unit != null)
+            {
+                unit.flip();
+            
+                if(unit is Item)
+                {
+                    Item _item = (Item)unit;
+                    btu.onClick.AddListener(() =>
+                         GetItem());
+                }
+            }
+        }
+
+        private void GetItem()
+        {
+            Item _item = (Item)unit;
+            ItemManager.instance.ItemSlotGet(_item);
+
+            itemCanvas.alpha = 0;
+            unit = null;
+            gridImg.sprite = null;
+        }
+
+        public void SetUnit(Unit u)
+        {
+            itemCanvas.alpha = 1;
+            unit = u;
+            gridImg.sprite = u.img;
         }
     }
 }
+

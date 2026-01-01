@@ -1,117 +1,183 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace Lodiya
 {
     public class MinesManager : MonoBehaviour
     {
-        [SerializeField]
+        #region 單例模式
+        //單例模式: 此物件只有一個存在且須要讓其他物件存取時使用
+        //存放此物件的容器
+        private static MinesManager _instance;
+        //讓外部取得的窗口 (唯獨)
+        public static MinesManager instance
+        {
+            get
+            {
+                if (_instance == null) _instance = FindAnyObjectByType<MinesManager>();
+
+                return _instance;
+            }
+        }
+        #endregion
+
         //炸彈數量
-        public int minesCount = 10;
         [SerializeField]
-        public GameObject baseBox;
+        public int minesCount = 10;
 
-        //沒炸彈為0 炸彈為1 道具
-        public int[,] mines = new int[5,5];
-        
-        public Grid[,] mineGrid = new Grid[5,5];
-        private Grid grid;
+        //已標記的數量
+        private int marking = 0;
+        //被標記的地雷
+        private int markingMines = 0;
 
-        public int point = 0;
+        /// <summary>
+        /// 地格大小 n*n的n
+        /// </summary>
+        [SerializeField]
+        private int gridCount = 5;
 
+
+        //false 該格為空格 
+        /// <summary>
+        /// 0 該格為 空格 
+        /// 1 該格為 怪物
+        /// 2 該格為 道具
+        /// </summary>
+        public int[,] mines;
+ 
+        public Grid[,] mineGrid;
+
+
+        //數字圖標
         [SerializeField]
         public Sprite[] num = new Sprite[9];
+
         [SerializeField]
-        public Sprite bomb;
+        private WaveData waveData;
 
         private void Awake()
         {
-            for(int x = 0; x < 5; x++)
-            {
-                for (int y = 0; y < 5; y++)
-                {
-                    int c = x * 5 + y;
-                    mineGrid[x, y] = gameObject.transform.GetChild(c).gameObject.transform.GetComponent<Grid>();
-                    mineGrid[x, y].SetPosition(x,y);
-                    mines[x, y] = 0;   
+            mines = new int[gridCount, gridCount];
+            mineGrid = new Grid[gridCount, gridCount];
 
-                    mineGrid[x, y].item.sprite = null;
+            int co = gridCount * gridCount;
+
+            //取得所有的格子
+            for (int x = 0; x < gridCount; x++)
+            {
+                for (int y = 0; y < gridCount; y++)
+                {
+                    int c = x * gridCount + y;
+                    mineGrid[x, y] = gameObject.transform.GetChild(c).gameObject.transform.GetComponent<Grid>();
+                    mineGrid[x, y].SetPosition(x, y);
+                    mines[x, y] = 0;
                 }
             }
 
-            //埋炸彈
-            for (int i = 0; i < minesCount; i++)
+            //執行敵人生成
+            for (int i = 0;i < waveData.enemy.Length;i++)
             {
-                int x = Random.Range(0,5);
-                int y = Random.Range(0,5);
+                waveData.enemy[i].SpwanMod(gridCount);
 
-                mines[x,y] = 1;
-                mineGrid[x, y].item.sprite = bomb;
             }
 
-            Debug.Log("reset");
+            //執行道具生成
+            for (int i = 0; i < waveData.items.Length; i++)
+            {
+                int x = Random.Range(0, gridCount);
+                int y = Random.Range(0, gridCount);
+
+                mines[x, y] = 2;
+                waveData.items[i].SetItem(x, y);
+            }
+
         }
 
         /// <summary>
-        /// 翻開格子
+        /// 翻開
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void Click(int x, int y)
+        public void Flip(int x, int y)
         {
-            mineGrid[x, y].cover.color = Color.clear;
-            if (mines[x, y] == 0)
+            //確認該格子能否翻開
+            if (!mineGrid[x,y].canOpen || mineGrid[x, y].isFlip) return;
+
+            //if(mineGrid[x, y].isFlip)
+
+            if (mines[x, y] != 0)
             {
-                Debug.Log("安全");
+                mineGrid[x, y].Flip();
+            }
+            else if (mines[x, y] == 0)
+            {
+                mineGrid[x, y].Flip();
 
                 #region 計算周遭
                 int count = 0;
-                if (Search(x - 1, y + 1)) count++;
-                if (Search(x, y + 1)) count++;
-                if (Search(x + 1, y + 1)) count++;
+                for (int dx = -1; dx <= 1; dx++)
+                {
+                    for (int dy = -1; dy <= 1; dy++)
+                    {
+                        if (dx == 0 || dy == 0) continue;
 
-                if (Search(x - 1, y)) count++;
-                if (Search(x + 1, y)) count++;
-
-                if (Search(x - 1, y - 1)) count++;
-                if (Search(x, y - 1)) count++;
-                if (Search(x + 1, y - 1)) count++;
-                #endregion
+                        if (Search(x + dx, y + dy)) count++;
+                    }
+                }
 
                 if (count > 0)
                 {
-                    mineGrid[x, y].item.sprite = num[count-1];
-                    point = point + count;
+                    mineGrid[x, y].gridImg.sprite = num[count - 1];
                 }
-            }
-            else if (mines[x, y] == 1)
-            {
-                Debug.Log("地雷");
+                #endregion
             }
         }
 
+        private Color c;
+        /// <summary>
+        /// 標記
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void Mark(int x, int y)
         {
-            Debug.Log("標記");
+            //Debug.Log("標記");
+            
+            if (mineGrid[x, y].canOpen)
+            {
+                marking++;
+                if (mines[x, y] == 1) markingMines++;
 
-            if(mineGrid[x, y].canOpen)
-            { 
+                c = mineGrid[x, y].cover.color;
                 mineGrid[x, y].cover.color = Color.red;
             }
             else if (!mineGrid[x, y].canOpen)
             {
-                mineGrid[x, y].cover.color = Color.HSVToRGB(50,97,100);
-            }
+                marking--;
+                if (mines[x, y] == 1) markingMines--;
+
+                mineGrid[x, y].cover.color = c;
+            }            
+
+            //若已標記的數量與炸彈數量相同
+            if (markingMines == waveData.enemy.Length)
+                Debug.Log($"<color=#5f5>遊戲通關");
 
             mineGrid[x, y].canOpen = !mineGrid[x, y].canOpen;
         }
 
-
+        /// <summary>
+        /// 探測(單格)
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool Search(int x, int y)
         {
-            if (x > 4 || x < 0) return false;
-            if (y > 4 || y < 0) return false;
-            //if (mines[x - 1, y + 1] == null) return false; 
-            if (mines[x, y] == 1) return true;
+            if (x > gridCount - 1 || x < 0) return false;
+            if (y > gridCount - 1 || y < 0) return false;
+            if (mines[x, y] != 0) return true;
             else return false;
         }
     }
