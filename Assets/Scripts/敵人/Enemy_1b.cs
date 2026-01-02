@@ -1,10 +1,10 @@
-﻿using System.Xml.Linq;
-using Unity.VisualScripting;
+﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lodiya
 {
-    [SerializeField, CreateAssetMenu(menuName = "Lodiya/Enemy/1b", order = 0)]
+    [Serializable, CreateAssetMenu(menuName = "Lodiya/Enemy/1b", order = 0)]
     public class Enemy_1b : Enemy
     {
         private int x, y;

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Lodiya
 {
-    [SerializeField, CreateAssetMenu(menuName = "Lodiya/Item", order = 0)]
+    [Serializable, CreateAssetMenu(menuName = "Lodiya/Item", order = 0)]
     ///道具
     public class Item : Unit
     {

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Lodiya
 {
     /// <summary>
     /// 治療藥水
     /// </summary>
-    [SerializeField, CreateAssetMenu(menuName = "Lodiya/Consumables/Potion", order = 0)]
+    [Serializable, CreateAssetMenu(menuName = "Lodiya/Consumables/Potion", order = 0)]
     public class Potion : Consumables
     {
         [SerializeField]
