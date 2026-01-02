@@ -4,6 +4,11 @@ using UnityEngine.UIElements;
 
 namespace Lodiya
 {
+    public enum unit
+    {
+        None, Enemy, Item
+    }
+
     public class MinesManager : MonoBehaviour
     {
         #region 單例模式
@@ -38,14 +43,16 @@ namespace Lodiya
         private int gridCount = 5;
 
 
-        //false 該格為空格 
         /// <summary>
         /// 0 該格為 空格 
         /// 1 該格為 怪物
         /// 2 該格為 道具
         /// </summary>
         public int[,] mines;
- 
+
+        [SerializeField]
+        public unit[,] uints;
+
         public Grid[,] mineGrid;
 
 
@@ -60,6 +67,7 @@ namespace Lodiya
         {
             mines = new int[gridCount, gridCount];
             mineGrid = new Grid[gridCount, gridCount];
+            uints = new unit[gridCount, gridCount];
 
             int co = gridCount * gridCount;
 
@@ -85,13 +93,26 @@ namespace Lodiya
             //執行道具生成
             for (int i = 0; i < waveData.items.Length; i++)
             {
-                int x = Random.Range(0, gridCount);
-                int y = Random.Range(0, gridCount);
+                Spawn(i);
+            }
+        }
 
+        public void Spawn(int i)
+        {
+            int x = Random.Range(0, gridCount);
+            int y = Random.Range(0, gridCount);
+
+            if (mineGrid[x, y].unit == null)
+            {
                 mines[x, y] = 2;
+                uints[x, y] = unit.Item;
                 waveData.items[i].SetItem(x, y);
             }
-
+            else
+            {
+                Debug.Log($"道具重疊 重新設定");
+                Spawn(i);
+            }
         }
 
         /// <summary>
@@ -120,7 +141,7 @@ namespace Lodiya
                 {
                     for (int dy = -1; dy <= 1; dy++)
                     {
-                        if (dx == 0 || dy == 0) continue;
+                        if (dx == 0 && dy == 0) continue;
 
                         if (Search(x + dx, y + dy)) count++;
                     }
@@ -178,7 +199,11 @@ namespace Lodiya
         {
             if (x > gridCount - 1 || x < 0) return false;
             if (y > gridCount - 1 || y < 0) return false;
-            if (mines[x, y] != 0) return true;
+            if (uints[x, y] != unit.None) 
+            {
+                return true;
+
+            }
             else return false;
         }
     }
