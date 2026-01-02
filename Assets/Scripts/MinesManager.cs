@@ -202,7 +202,6 @@ namespace Lodiya
             if (uints[x, y] != unit.None) 
             {
                 return true;
-
             }
             else return false;
         }
