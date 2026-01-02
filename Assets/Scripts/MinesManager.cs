@@ -128,6 +128,7 @@ namespace Lodiya
 
                 if (count > 0)
                 {
+                    mineGrid[x, y].itemCanvas.alpha = 1;
                     mineGrid[x, y].gridImg.sprite = num[count - 1];
                 }
                 #endregion

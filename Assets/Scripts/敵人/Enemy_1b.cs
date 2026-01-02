@@ -29,6 +29,8 @@ namespace Lodiya
         public override void flip()
         {
             base.flip();
+
+            Debug.Log($"遇到了{name}");
         }
     }
 }

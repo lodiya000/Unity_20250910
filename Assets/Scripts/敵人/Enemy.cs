@@ -6,7 +6,7 @@ namespace Lodiya
     {
         public int damage;
 
-        private bool isFlip = false;
+        public bool isFlip = false;
 
         /// <summary>
         /// 生成模式
@@ -18,10 +18,10 @@ namespace Lodiya
 
         public override void flip()
         {
-            if (!isFlip) 
+            //if (!isFlip) 
                 GameManager.instance.Damage(damage);
 
-            isFlip = true;
+            //isFlip = true;
         }
     }
 }

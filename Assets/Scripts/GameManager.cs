@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Lodiya
 {
@@ -36,7 +34,13 @@ namespace Lodiya
 
         [SerializeField]
         public int hpMax = 5;
+        /// <summary>
+        /// 生命值最高上限
+        /// </summary>
+        private int hpLimit = 10;   
         public int hp;
+
+        public int shield;
 
         void Start()
         {
@@ -57,11 +61,29 @@ namespace Lodiya
         /// <summary>
         /// 減少生命值
         /// </summary>
-        /// <param name="value">增減的數值</param>
-        public void Damage(int value)
+        /// <param name="damage">增減的數值</param>
+        public void Damage(int damage)
         {
-            hp -= value;
-            hp_Text.text = $"{hp}/{hpMax}"; 
+            Debug.Log($"受到{damage}點傷害");
+
+            if (shield > 0)
+            {
+                if(shield > damage)
+                {
+                    shield -= damage;
+                }
+                else
+                {
+                    hp = (hp + shield) - damage;
+                    shield = 0;
+                }
+            }
+            else
+            {
+                hp -= damage;
+            }
+
+            SetHP();
 
             if (hp <= 0) Debug.Log($"<color=#f00>遊戲結束"); 
         }
@@ -73,10 +95,44 @@ namespace Lodiya
         public void Heal(int value)
         {
             hp += value;
-            hp_Text.text = $"{hp}/{hpMax}";
-
+            SetHP();
         }
 
+        /// <summary>
+        /// 生命值上限
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetHPMax(int value)
+        {
+            if (hpMax < hpLimit)
+                hpMax = hpMax + value;
+            else Debug.Log("生命值已達上限");
+
+            SetHP();
+        }
+
+        /// <summary>
+        /// 護盾
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetShield(int value)
+        {
+            shield += value;
+
+            SetHP();
+        }
+
+        public void SetHP()
+        {
+            if(shield > 0)
+            {
+                hp_Text.text = $"{hp}/{hpMax}({shield})";
+            }
+            else
+            {
+                hp_Text.text = $"{hp}/{hpMax}";
+            }
+        }
 
         /// <summary>
         /// 右鍵點擊
