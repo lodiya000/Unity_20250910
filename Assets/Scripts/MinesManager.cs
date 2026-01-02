@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Lodiya
 {
@@ -91,7 +90,6 @@ namespace Lodiya
                 mines[x, y] = 2;
                 waveData.items[i].SetItem(x, y);
             }
-
         }
 
         /// <summary>
@@ -120,7 +118,7 @@ namespace Lodiya
                 {
                     for (int dy = -1; dy <= 1; dy++)
                     {
-                        if (dx == 0 || dy == 0) continue;
+                        if (dx == 0 && dy == 0) continue;
 
                         if (Search(x + dx, y + dy)) count++;
                     }
@@ -176,9 +174,14 @@ namespace Lodiya
         /// <returns></returns>
         public bool Search(int x, int y)
         {
+            Debug.Log($"探測座標{x},{y}");
             if (x > gridCount - 1 || x < 0) return false;
             if (y > gridCount - 1 || y < 0) return false;
-            if (mines[x, y] != 0) return true;
+            if (mines[x, y] != 0)
+            {
+                mineGrid[x, y].GetComponent<Image>().color = Color.yellow;
+                return true;
+            }
             else return false;
         }
     }
