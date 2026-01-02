@@ -1,6 +1,5 @@
-﻿using System.Xml.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lodiya
 {

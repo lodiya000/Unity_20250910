@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Lodiya
 {
@@ -6,7 +7,7 @@ namespace Lodiya
     /// 體力強化劑
     /// 生命值上限+1(最高10)
     /// </summary>
-    [SerializeField, CreateAssetMenu(menuName = "Lodiya/Consumables/Fortifier", order = 0)]
+    [Serializable, CreateAssetMenu(menuName = "Lodiya/Consumables/Fortifier", order = 0)]
     public class Fortifier : Consumables
     {
         [SerializeField]
