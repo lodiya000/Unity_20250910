@@ -43,6 +43,8 @@ namespace Lodiya
 
         public void ItemSlotGet(Item item)
         {
+            Debug.Log("獲得道具:" + item.name);
+
             if (count < itemMax)
             {
                 slots[count].GetItem(item);
