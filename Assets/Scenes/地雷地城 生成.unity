@@ -2654,8 +2654,6 @@ MonoBehaviour:
   gridCount: 5
   item_Search: 0
   waveData: {fileID: 11400000, guid: 4239b80880b83dd44a48cfed4509d5dd, type: 2}
-  grid: {fileID: 7806531580257925194, guid: 1d9932a49554a2941a5d4186f6c11a06, type: 3}
-  _this: {fileID: 0}
 --- !u!1001 &391756025
 PrefabInstance:
   m_ObjectHideFlags: 0

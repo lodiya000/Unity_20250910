@@ -8,9 +8,6 @@ namespace Lodiya
     public class Grid : MonoBehaviour
     {
         [SerializeField]
-        MinesManager minesManager;
-
-        [SerializeField]
         public Button btu;
 
         [SerializeField]
@@ -47,7 +44,7 @@ namespace Lodiya
 
         public void Mark()
         {
-            minesManager.Mark(position_X, position_Y);
+            MinesManager.instance.Mark(position_X, position_Y);
         }
 
         public void Open()

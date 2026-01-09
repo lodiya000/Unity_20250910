@@ -37,7 +37,7 @@ namespace Lodiya
             {
                 slots[i] = gameObject.transform.GetChild(i).
                     gameObject.transform.GetComponent<ItemSlot>();
-                if(i > bag)
+                if(i >= bag)
                     slots[i].canvas.alpha = 0;
 
             }

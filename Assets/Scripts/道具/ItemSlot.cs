@@ -34,20 +34,16 @@ namespace Lodiya
 
             btu.onClick.AddListener(() =>
                 OpenList());
-
-            /*
-            if (item.canUse)
-            {
-                btu.onClick.AddListener(() =>
-                    UseItem());
-            }          
-            else Debug.Log("該物品不能使用");
-            */
+            Debug.Log("設定為開啟");
         }
 
         private void OpenList()
         {
-            illustrate.instance.TakeItem(this);
+            illustrate.instance.GetItem(this);
+
+            btu.onClick.AddListener(() =>
+                CloseList());
+            Debug.Log("設定為關閉");
         }
 
         public void UseItem()
@@ -71,6 +67,15 @@ namespace Lodiya
                 slotImg.sprite = null;
             }
             illustrate.instance.CloseCanvas();
+        }
+
+        public void CloseList() 
+        {
+            illustrate.instance.CloseCanvas();
+
+            btu.onClick.AddListener(() =>
+                OpenList());
+            Debug.Log("設定為開啟");
         }
     }
 }

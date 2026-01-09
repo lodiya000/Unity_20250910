@@ -40,7 +40,7 @@ namespace Lodiya
         /// 地格大小 n*n的n
         /// </summary>
         [SerializeField]
-        private int gridCount = 5;
+        private int gridCount;
 
         //探測護符
         public bool item_Search;
@@ -67,6 +67,8 @@ namespace Lodiya
             mines = new int[gridCount, gridCount];
             mineGrid = new Grid[gridCount, gridCount];
             uints = new unit[gridCount, gridCount];
+            gridCount = waveData.GridCount;
+
 
             //取得所有的格子
             for (int x = 0; x < gridCount; x++)
