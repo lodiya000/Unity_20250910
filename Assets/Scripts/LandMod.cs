@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Lodiya
+﻿namespace Lodiya
 {
     public enum LandMod 
     {

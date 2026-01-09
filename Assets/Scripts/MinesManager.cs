@@ -1,6 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Lodiya
 {
@@ -64,10 +62,10 @@ namespace Lodiya
 
         public void GenerationAwake()
         {
+            gridCount = waveData.GridCount;
             mines = new int[gridCount, gridCount];
             mineGrid = new Grid[gridCount, gridCount];
             uints = new unit[gridCount, gridCount];
-            gridCount = waveData.GridCount;
 
 
             //取得所有的格子

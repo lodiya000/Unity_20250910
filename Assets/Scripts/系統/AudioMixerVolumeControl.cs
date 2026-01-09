@@ -1,9 +1,4 @@
-﻿// 2025/9/3 AI-Tag
-// This was created with the help of Assistant, a Unity Artificial Intelligence product.
-
-using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 

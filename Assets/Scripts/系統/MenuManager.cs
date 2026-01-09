@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -20,7 +19,7 @@ namespace Lodiya
         private void Awake()
         {
             startBtu.onClick.AddListener(() =>
-                SceneManager.LoadScene("地雷地城"));
+                SceneManager.LoadScene("地雷地城 生成"));
 
             setingBtu.onClick.AddListener(() =>
                 StartCoroutine(FadeSystam.Fade(setingGroup)));

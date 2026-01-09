@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Lodiya
+﻿namespace Lodiya
 {
     /// 翻開
     /// 受擊

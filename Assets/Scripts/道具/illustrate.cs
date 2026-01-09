@@ -1,6 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Lodiya
@@ -48,9 +48,22 @@ namespace Lodiya
         [SerializeField]
         private ItemSlot slot;
 
+        [SerializeField]
+        public bool open { get;private set; }
+
+        public Action useItem, loseItem;
+
+        private void Awake()
+        {
+            open = false;
+            useBtu.onClick.AddListener(() => useItem?.Invoke());
+            dropBtu.onClick.AddListener(() => loseItem?.Invoke());
+        }
+
         public void GetItem(ItemSlot _slot)
         {
             slot = _slot;
+            open = true;
 
             TakeItem();
         }
@@ -68,8 +81,8 @@ namespace Lodiya
             {
                 StartCoroutine(FadeSystam.Fade(useCanvas));
 
-                useBtu.onClick.AddListener(() =>
-                slot.UseItem());
+                //useBtu.onClick.AddListener(() =>
+                //slot.UseItem());
             }
             else StartCoroutine(FadeSystam.Fade(useCanvas, 0, false));
 
@@ -78,8 +91,8 @@ namespace Lodiya
             {
                 StartCoroutine(FadeSystam.Fade(dropCanvas));
 
-                dropBtu.onClick.AddListener(() =>
-                    slot.LoseItem());
+                //dropBtu.onClick.AddListener(() =>
+                    //slot.LoseItem());
             }
             else StartCoroutine(FadeSystam.Fade(dropCanvas, 0, false));
         }
@@ -88,6 +101,7 @@ namespace Lodiya
         {
             slot = null;
             StartCoroutine(FadeSystam.Fade(_canvasGroup, 0, false));
+            open = false;
             Debug.Log("close");
         }
     }

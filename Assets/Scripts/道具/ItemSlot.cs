@@ -26,24 +26,22 @@ namespace Lodiya
         public int slot;
 
         public CanvasGroup canvas;
+        //private bool open;
+
+        private void Awake()
+        {
+            btu.onClick.AddListener(() =>
+                List());
+        }
 
         public void GetItem(Item _item)
         {
             item = _item;
             slotImg.sprite = _item.img;
 
-            btu.onClick.AddListener(() =>
-                OpenList());
-            Debug.Log("設定為開啟");
-        }
-
-        private void OpenList()
-        {
-            illustrate.instance.GetItem(this);
-
-            btu.onClick.AddListener(() =>
-                CloseList());
-            Debug.Log("設定為關閉");
+            //btu.onClick.AddListener(() =>
+                //OpenList());
+            //Debug.Log("設定為開啟");
         }
 
         public void UseItem()
@@ -69,13 +67,27 @@ namespace Lodiya
             illustrate.instance.CloseCanvas();
         }
 
+        private void OpenList()
+        {
+            illustrate.instance.GetItem(this);
+
+            illustrate.instance.useItem = UseItem;
+            illustrate.instance.loseItem = LoseItem;
+
+            Debug.Log("設定為關閉");
+        }
+
         public void CloseList() 
         {
             illustrate.instance.CloseCanvas();
 
-            btu.onClick.AddListener(() =>
-                OpenList());
             Debug.Log("設定為開啟");
+        }
+
+        public void List()
+        {
+            if (!illustrate.instance.open) OpenList();
+            else CloseList();
         }
     }
 }

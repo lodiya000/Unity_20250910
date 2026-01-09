@@ -94,7 +94,8 @@ namespace Lodiya
         /// <param name="value">增減的數值</param>
         public void Heal(int value)
         {
-            hp += value;
+            if(hp < hpMax) hp += value;
+
             SetHP();
         }
 
