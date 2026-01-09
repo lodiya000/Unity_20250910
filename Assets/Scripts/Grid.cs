@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Lodiya
@@ -82,8 +83,6 @@ namespace Lodiya
         {
             Item _item = (Item)unit;
             ItemManager.instance.ItemSlotGet(_item);
-
-            
 
             itemCanvas.alpha = 0;
             unit = null;

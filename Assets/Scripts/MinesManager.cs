@@ -62,7 +62,7 @@ namespace Lodiya
         [SerializeField]
         private WaveData waveData;
 
-        private void Awake()
+        public void GenerationAwake()
         {
             mines = new int[gridCount, gridCount];
             mineGrid = new Grid[gridCount, gridCount];
