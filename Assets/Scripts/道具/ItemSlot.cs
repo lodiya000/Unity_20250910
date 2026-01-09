@@ -27,6 +27,11 @@ namespace Lodiya
 
         public CanvasGroup canvas;
 
+        private void Awake()
+        {
+            btu.onClick.AddListener(() => illustrate.instance.useItem = UseItem);
+        }
+
         public void GetItem(Item _item)
         {
             item = _item;

@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -31,7 +32,7 @@ namespace Lodiya
 
         [SerializeField]
         private TMP_Text itemName;  ///道具名
-        
+
         [SerializeField]
         private TMP_Text itemText;  ///說明文
 
@@ -47,6 +48,13 @@ namespace Lodiya
 
         [SerializeField]
         private ItemSlot slot;
+
+        public Action useItem;
+
+        private void Awake()
+        {
+            useBtu.onClick.AddListener(() => useItem?.Invoke());
+        }
 
         public void GetItem(ItemSlot _slot)
         {
@@ -67,9 +75,7 @@ namespace Lodiya
             if (slot.item.canUse)
             {
                 StartCoroutine(FadeSystam.Fade(useCanvas));
-
-                useBtu.onClick.AddListener(() =>
-                slot.UseItem());
+                // useBtu.onClick.AddListener(() => slot.UseItem());
             }
             else StartCoroutine(FadeSystam.Fade(useCanvas, 0, false));
 
