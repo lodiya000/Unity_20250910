@@ -30,7 +30,7 @@ namespace Lodiya
 
         [SerializeField]
         private TMP_Text itemName;  ///道具名
-        
+
         [SerializeField]
         private TMP_Text itemText;  ///說明文
 
@@ -50,14 +50,12 @@ namespace Lodiya
         public void TakeItem(ItemSlot _slot)
         {
             slot = _slot;
-
             TakeItem();
-
         }
 
         private void TakeItem()
         {
-            _canvasGroup.alpha = 1;
+            StartCoroutine(FadeSystam.Fade(_canvasGroup));
 
             itemImage.sprite = slot.item.img;
             itemName.text = slot.item.itemName;
@@ -65,26 +63,24 @@ namespace Lodiya
 
             if (slot.item.canUse)
             {
-                useCanvas.alpha = 1;
-
+                StartCoroutine(FadeSystam.Fade(useCanvas));
                 useBtu.onClick.AddListener(() =>
                 slot.UseItem());
             }
-            else useCanvas.alpha = 0;
+            else StartCoroutine(FadeSystam.Fade(useCanvas, fadeIn: false));
 
             if (slot.item.canLeave)
             {
-                dropCanvas.alpha = 1;
-
+                StartCoroutine(FadeSystam.Fade(dropCanvas));
                 dropBtu.onClick.AddListener(() =>
                     slot.LoseItem());
             }
-            else dropCanvas.alpha = 0;
+            else StartCoroutine(FadeSystam.Fade(dropCanvas, fadeIn: false));
         }
 
         public void CloseCanvas()
         {
-            _canvasGroup.alpha = 0;
+            StartCoroutine(FadeSystam.Fade(_canvasGroup, fadeIn: false));
         }
     }
 }
