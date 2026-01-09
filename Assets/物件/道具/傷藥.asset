@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: "\u50B7\u85E5"
   m_EditorClassIdentifier: Assembly-CSharp::Lodiya.Potion
   img: {fileID: 21300000, guid: 82ec03de634418644b3069eb17d0d9a7, type: 3}
+  itemName: "\u50B7\u85E5"
+  itemEffect: "\u751F\u547D\u503C+1"
+  itemID: 0
   canUse: 1
   canLeave: 1
   heal: 1

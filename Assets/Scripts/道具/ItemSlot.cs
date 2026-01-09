@@ -25,24 +25,37 @@ namespace Lodiya
         [SerializeField]
         public int slot;
 
+        public CanvasGroup canvas;
 
         public void GetItem(Item _item)
         {
             item = _item;
             slotImg.sprite = _item.img;
 
+            btu.onClick.AddListener(() =>
+                OpenList());
+
+            /*
             if (item.canUse)
             {
                 btu.onClick.AddListener(() =>
                     UseItem());
-            }
+            }          
             else Debug.Log("該物品不能使用");
+            */
+        }
+
+        private void OpenList()
+        {
+            illustrate.instance.TakeItem(this);
         }
 
         public void UseItem()
         {
-            Debug.Log("使用物品");
             if(item == null) return;
+
+            Debug.Log("使用物品");
+
             item.Use();
             if (item is Consumables)
                 ItemManager.instance.ItemSlotLose(slot);
@@ -50,14 +63,14 @@ namespace Lodiya
 
         public void LoseItem() 
         {
+            if(item == null) return;
+
             if (item.canLeave)
             {
                 item = null;
                 slotImg.sprite = null;
             }
-
-
+            illustrate.instance.CloseCanvas();
         }
-
     }
 }

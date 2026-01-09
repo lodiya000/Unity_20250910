@@ -25,6 +25,9 @@ namespace Lodiya
         [SerializeField]
         public CanvasGroup itemCanvas;
 
+        [SerializeField]
+        public TMP_Text num;
+
         public bool canOpen = true;
         public bool isFlip = false;
         private int position_X, position_Y;
@@ -68,6 +71,10 @@ namespace Lodiya
                     btu.onClick.AddListener(() =>
                          GetItem());
                 }
+                else if(unit is Enemy)
+                {
+                    btu.interactable = false;
+                }
             }
         }
 
@@ -75,6 +82,8 @@ namespace Lodiya
         {
             Item _item = (Item)unit;
             ItemManager.instance.ItemSlotGet(_item);
+
+            
 
             itemCanvas.alpha = 0;
             unit = null;

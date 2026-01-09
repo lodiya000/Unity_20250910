@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: "\u8B77\u76FE"
   m_EditorClassIdentifier: Assembly-CSharp::Lodiya.Shield
   img: {fileID: 21300000, guid: 6df648b8be442a447b34c667f307047e, type: 3}
+  itemName: "\u76FE\u724C"
+  itemEffect: "\u8B77\u76FE\u503C+1"
+  itemID: 1
   canUse: 1
   canLeave: 1
   value: 1

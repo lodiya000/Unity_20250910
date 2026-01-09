@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Lodiya
 {
@@ -42,6 +42,10 @@ namespace Lodiya
         [SerializeField]
         private int gridCount = 5;
 
+        //探測護符
+        public bool item_Search;
+        private unit itemSearch = unit.None;
+
 
         /// <summary>
         /// 0 該格為 空格 
@@ -54,11 +58,6 @@ namespace Lodiya
         public unit[,] uints;
 
         public Grid[,] mineGrid;
-
-
-        //數字圖標
-        [SerializeField]
-        public Sprite[] num = new Sprite[9];
 
         [SerializeField]
         private WaveData waveData;
@@ -134,6 +133,7 @@ namespace Lodiya
             else if (mines[x, y] == 0)
             {
                 mineGrid[x, y].Flip();
+                
 
                 #region 計算周遭
                 int count = 0;
@@ -149,9 +149,13 @@ namespace Lodiya
 
                 if (count > 0)
                 {
-                    mineGrid[x, y].itemCanvas.alpha = 1;
-                    mineGrid[x, y].gridImg.sprite = num[count - 1];
+                    if (itemSearch == unit.Enemy)
+                        mineGrid[x, y].num.color = Color.black;
+                    else if (itemSearch == unit.Item)
+                        mineGrid[x, y].num.color = Color.green;
+                    mineGrid[x, y].num.text = $"{count}";
                 }
+                itemSearch = unit.None;
                 #endregion
             }
         }
@@ -201,6 +205,21 @@ namespace Lodiya
             if (y > gridCount - 1 || y < 0) return false;
             if (uints[x, y] != unit.None) 
             {
+                if (item_Search)
+                {
+                    if(uints[x, y] == unit.Enemy)
+                    {
+                        itemSearch = unit.Enemy;
+                    }
+                    else if(uints[x, y] == unit.Item)
+                    {
+                        if(itemSearch != unit.Enemy)
+                        {
+                            itemSearch = unit.Item;
+                        }
+                    }
+                }
+
                 return true;
             }
             else return false;

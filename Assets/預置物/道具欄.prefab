@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5035347043352558952}
   - component: {fileID: 8629540505884478584}
   - component: {fileID: 6024533669908830532}
+  - component: {fileID: 8338137994659084753}
   m_Layer: 5
   m_Name: "\u9053\u5177\u6B04"
   m_TagString: Untagged
@@ -136,3 +137,17 @@ MonoBehaviour:
   btu: {fileID: 8629540505884478584}
   item: {fileID: 0}
   slotImg: {fileID: 5035347043352558952}
+  slot: 0
+  canvas: {fileID: 8338137994659084753}
+--- !u!225 &8338137994659084753
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212875812164346579}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -24,7 +24,8 @@ namespace Lodiya
         }
         #endregion
 
-        private int itemMax = 5;
+        public int bag = 5;
+        private int itemMax = 10;
 
         private ItemSlot[] slots = new ItemSlot[10];
 
@@ -32,26 +33,25 @@ namespace Lodiya
 
         private void Awake()
         {
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < itemMax; i++)
             {
                 slots[i] = gameObject.transform.GetChild(i).
                     gameObject.transform.GetComponent<ItemSlot>();
+                if(i > bag)
+                    slots[i].canvas.alpha = 0;
 
-                //item[i] = slot.item;
             }
-        } 
+        }
 
         public void ItemSlotGet(Item item)
         {
-            if (count < itemMax)
+            if (count < bag)
             {
                 slots[count].GetItem(item);
-
+                item.GetAmulet();
                 count++;
             }
             else Debug.Log("背包空間不足");
-
-
         }
 
         public void ItemSlotUse(int id)
@@ -68,10 +68,18 @@ namespace Lodiya
         public void ItemSlotLose(int id)
         {
             slots[id].LoseItem();
-
+            if (slots[id].item != null)
+                slots[id].item.DropAmulet();
             //else Debug.Log("該物品不能丟棄");
         }
 
-        //public void 
+        public void SetBag()
+        {
+            if (bag < itemMax)
+            { 
+                bag++;
+                slots[bag].canvas.alpha = 1;
+            }
+        }
     }
 }

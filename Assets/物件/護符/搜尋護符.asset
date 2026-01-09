@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ae37ffb536b2942b8362a2f9e8a8e8, type: 3}
+  m_Name: "\u641C\u5C0B\u8B77\u7B26"
+  m_EditorClassIdentifier: Assembly-CSharp::Lodiya.Amulet_Search
+  img: {fileID: 21300000, guid: 95018a2fe733702488ad7f368fc8d29f, type: 3}
+  itemName: "\u641C\u5C0B\u8B77\u7B26"
+  itemEffect: "\u80FD\u5920\u5206\u8FA8\u63A2\u6E2C\u5230\u7684\u7269\u4EF6\u4E2D\u6709\u7121\u6575\u4EBA"
+  itemID: 0
+  canUse: 0
+  canLeave: 1

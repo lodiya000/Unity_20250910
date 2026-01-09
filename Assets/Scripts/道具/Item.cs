@@ -10,12 +10,17 @@ namespace Lodiya
         /// <summary>
         /// 物品名稱
         /// </summary>
-        protected string itemName;
+        public string itemName;
+
+        /// <summary>
+        /// 物品效果
+        /// </summary>
+        public string itemEffect;
 
         /// <summary>
         /// 物品ID
         /// </summary>
-        protected int itemID;
+        public int itemID;
 
         /// <summary>
         /// 能否使用
@@ -42,6 +47,16 @@ namespace Lodiya
         {
             //MinesManager.instance.mineGrid[x, y].gridImg.sprite = img;
             MinesManager.instance.mineGrid[x, y].SetUnit(this);
+        }
+
+        public virtual void GetAmulet()
+        {
+            Debug.Log($"獲得{name}");
+        }
+
+        public virtual void DropAmulet()
+        {
+
         }
     }
 }

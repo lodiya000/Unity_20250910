@@ -12,16 +12,6 @@ namespace Lodiya
             canUse = false;
 
             canLeave = true;
-        }
-
-        protected virtual void GetAmulet()
-        {
-
-        }
-
-        protected virtual void DropAmulet()
-        {
-
-        }    
+        }  
     }
 }
