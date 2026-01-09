@@ -68,15 +68,15 @@ namespace Lodiya
             mineGrid = new Grid[gridCount, gridCount];
             uints = new unit[gridCount, gridCount];
 
-            int co = gridCount * gridCount;
-
             //取得所有的格子
             for (int x = 0; x < gridCount; x++)
             {
                 for (int y = 0; y < gridCount; y++)
                 {
-                    int c = x * gridCount + y;
-                    mineGrid[x, y] = gameObject.transform.GetChild(c).gameObject.transform.GetComponent<Grid>();
+                    Debug.Log($"{x}, {y}");
+
+                    int co = x * gridCount + y;
+                    mineGrid[x, y] = gameObject.transform.GetChild(co).gameObject.transform.GetComponent<Grid>();
                     mineGrid[x, y].SetPosition(x, y);
                     mines[x, y] = 0;
                 }
