@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03578d8c517f79b458f2ff3e26c5b32b, type: 3}
   m_Name: "\u6E2C\u8A66\u95DC\u5361"
   m_EditorClassIdentifier: Assembly-CSharp::Lodiya.WaveData
-  GridCount: 10
+  GridCount: 5
   enemy:
   - {fileID: 11400000, guid: a5d3ce331d07c8e4bac35a26c240aa3a, type: 2}
   - {fileID: 11400000, guid: a5d3ce331d07c8e4bac35a26c240aa3a, type: 2}

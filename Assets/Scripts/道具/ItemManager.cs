@@ -30,6 +30,8 @@ namespace Lodiya
 
         private int count = 0;
 
+        private bool canGet = true;
+
         private void Awake()
         {
             for (int i = 0; i < itemMax; i++)
@@ -44,13 +46,20 @@ namespace Lodiya
 
         public void ItemSlotGet(Item item)
         {
-            if (count < bag)
+            canGet = true;
+
+            for (int i = 0; i < slots.Length; i++)
             {
-                slots[count].GetItem(item);
-                item.GetAmulet();
-                count++;
+                if (slots[i].item == null && canGet == true)
+                {
+                    slots[i].GetItem(item);
+                    item.GetAmulet();
+                    canGet = false;
+                    Debug.Log($"{i}已經取得");
+                }
             }
-            else Debug.Log("背包空間不足");
+
+            if (canGet == true) Debug.Log("背包空間不足");
         }
 
         public void ItemSlotUse(int id)
